@@ -1,0 +1,25 @@
+CREATE DATABASE IF NOT EXISTS petclinicpet;
+
+ALTER DATABASE petclinicpet
+  DEFAULT CHARACTER SET utf8
+  DEFAULT COLLATE utf8_general_ci;
+
+GRANT ALL PRIVILEGES ON petclinicpet.* TO pc@localhost IDENTIFIED BY 'pc';
+
+USE petclinicpet;
+
+CREATE TABLE IF NOT EXISTS types (
+  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(80),
+  INDEX(name)
+) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS pets (
+  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(30),
+  birth_date DATE,
+  type_id INT(4) UNSIGNED NOT NULL,
+  owner_id INT(4) UNSIGNED NOT NULL,
+  INDEX(name),
+  FOREIGN KEY (type_id) REFERENCES types(id)
+) engine=InnoDB;
